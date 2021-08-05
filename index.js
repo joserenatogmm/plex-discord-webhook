@@ -116,8 +116,6 @@ app.post('/', upload.single('thumb'), function (req, res, next) {
 	const isVideo = payload.Metadata.librarySectionType === 'movie' || payload.Metadata.librarySectionType === 'show';
 	const isAudio = payload.Metadata.librarySectionType === 'artist';
 	
-	console.log(payload)
-
 	if (payload.user === true && payload.Metadata && (isAudio || isVideo)) {
 		var key = sha1(payload.Server.uuid + payload.Metadata.guid);
 
@@ -135,7 +133,7 @@ app.post('/', upload.single('thumb'), function (req, res, next) {
 			}
 		}
 
-		if ((payload.event === 'media.scrobble' && isVideo) || payload.event === 'media.rate' || payload.event === 'media.play') {
+		if ((payload.event === 'media.scrobble' && isVideo) || payload.event === 'media.rate' || payload.event === 'media.play' || payload.event === 'library.new') {
 			// Geolocate player.
 			freegeoip.getLocation(payload.Player.publicAddress, function (err, location) {
 
