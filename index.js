@@ -115,6 +115,8 @@ app.post('/', upload.single('thumb'), function (req, res, next) {
 	var payload = JSON.parse(req.body.payload);
 	const isVideo = payload.Metadata.librarySectionType === 'movie' || payload.Metadata.librarySectionType === 'show';
 	const isAudio = payload.Metadata.librarySectionType === 'artist';
+	
+	console.log(payload)
 
 	if (payload.user === true && payload.Metadata && (isAudio || isVideo)) {
 		var key = sha1(payload.Server.uuid + payload.Metadata.guid);
